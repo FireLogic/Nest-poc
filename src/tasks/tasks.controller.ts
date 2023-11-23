@@ -13,13 +13,12 @@ export class TasksController {
 
     @Post()
     createTask(@Body()newTask: CreateTaskDTO){
-        return this.tasksService.createTask(newTask.title, newTask.description);
+        return this.tasksService.create(newTask);
     }
     @Delete(':id')
     deleteTask(@Param('id') id: string){
         this.tasksService.deleteTask(id)
     }
-
 
     @Patch(':id')
     updateTask(@Param('id') id: string, @Body() updatedFields: updateClassDTO){

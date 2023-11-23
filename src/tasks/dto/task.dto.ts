@@ -1,6 +1,64 @@
-import { TaskStatus } from "../task.entity"
+
 import {IsIn, IsNotEmpty, IsOptional, IsString, MinLength} from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger';
+import{Schema, Prop, SchemaFactory} from '@nestjs/mongoose'
+
+export enum TaskStatus{
+    PENDING = 'PENDING',
+    IN_PROGRESS ='IN_PROGRESS',
+    DONE = 'DONE'
+}
+
+
+@Schema({
+    timestamps: true
+})
+export class Task{
+    @Prop({
+        unique: true,
+        required: true,
+        trim: true
+    })
+    title: string
+
+    @Prop({
+        trim: true
+    })
+    description: string
+
+    @Prop()
+    status: TaskStatus
+}
+
+export const  TaskSchema = SchemaFactory.createForClass(Task);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export class CreateTaskDTO{
     @IsString()
@@ -37,3 +95,5 @@ export class updateClassDTO{
     @IsIn([TaskStatus.PENDING, TaskStatus.DONE, TaskStatus.IN_PROGRESS])
     status?: TaskStatus
 }
+
+
